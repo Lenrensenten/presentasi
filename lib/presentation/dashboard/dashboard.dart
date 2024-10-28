@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:projectmobile/presentation/cart/topuppage.dart';
+import 'package:projectmobile/presentation/item/detailproduk.dart';
+import 'package:projectmobile/widget/kategori.dart';
 import '../message/message.dart';
 import '../notification/notifikasi.dart';
 import '../transaksi/traksaksi.dart';
 import '../cart/keranjang.dart';
 import '../../widget/profilemenu.dart';
-import '../Top up/topup.dart';
+import '../../widget/showsearchhistory.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -14,7 +17,13 @@ class Dashboard extends StatefulWidget {
 }
 
 class _Dashboard extends State<Dashboard> {
-  // Fungsi untuk menampilkan pop-up menu saat tombol profil ditekan
+  List<String> searchHistory = [
+    "Baju kekinian",
+    "Celana jeans",
+    "Jaket kulit",
+    "Sepatu sneaker",
+    "Topi stylish"
+  ]; // Daftar search history
 
   @override
   Widget build(BuildContext context) {
@@ -48,18 +57,24 @@ class _Dashboard extends State<Dashboard> {
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.white,
                       ),
-                      child: const Row(
+                      child: Row(
                         children: [
-                          SizedBox(width: 12),
-                          Icon(Icons.search, size: 20),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 12),
+                          const Icon(Icons.search, size: 20),
+                          const SizedBox(width: 8),
                           Expanded(
                             child: TextField(
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 hintText:
                                     'Baju kekinian', // Placeholder sesuai gambar
                               ),
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => ShowSearchHistory(
+                                        searchHistory: searchHistory));
+                              },
                             ),
                           ),
                         ],
@@ -98,6 +113,7 @@ class _Dashboard extends State<Dashboard> {
               ),
             ),
           ),
+
           const SizedBox(height: 16),
           // Wallet Balance (Poin Section)
           Container(
@@ -131,11 +147,9 @@ class _Dashboard extends State<Dashboard> {
                     ElevatedButton(
                         onPressed: () {
                           Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    TopupWidget()), // Navigasi ke halaman topup
-                          );
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const TopUpPage()));
                         },
                         child: const Text('Top Up')),
                     const SizedBox(width: 4),
@@ -225,6 +239,28 @@ class _Dashboard extends State<Dashboard> {
                           Image.asset('assets/promo_baju1.png', height: 180),
                           const SizedBox(height: 8),
                           const Text('Promo Baju Kekinian!!'),
+                          ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ProductDetailPage(
+                                      productName: 'Promo Baju Kekinian',
+                                      productDescription: 'Deskripsi produk...',
+                                      productPrice: 50000,
+                                      productImage: 'assets/promo_baju1.png',
+                                      productMaterial: '',
+                                      productDesign: '',
+                                      productAdvantage: '',
+                                      productCare: '',
+                                      productSizes: [],
+                                      productStock: 5,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: const Text('Lihat Detail')),
                         ],
                       ),
                       Column(
@@ -304,7 +340,9 @@ class _Dashboard extends State<Dashboard> {
                 Column(
                   children: [
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          CategoryMenu.showCategoryMenu(context);
+                        },
                         icon: const Icon(Icons.category, color: Colors.white)),
                     const Text('Kategori',
                         style: TextStyle(color: Colors.white)),

@@ -31,6 +31,9 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^1.0.0
+  firebase_core: ^3.6.0
+  firebase_auth: ^5.3.1
+  firebase_database: ^11.1.4
 
 
 
@@ -66,6 +69,14 @@ flutter:
     - assets/vector (6).svg
     - assets/vector (7).svg
     - assets/vector (8).svg
+    - assets/vector (9).svg
+    - assets/vector (25).svg
+    - assets/vector (26).svg
+    - assets/vector (31).svg
+    - assets/vector (32).svg
+    - assets/vector (33).svg
+    - assets/vector (34).svg
+
 
 
 
